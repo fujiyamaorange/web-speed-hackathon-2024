@@ -18,8 +18,8 @@ import { CoverSection } from './internal/CoverSection';
 const TopPage: React.FC = () => {
   const todayStr = getDayOfWeekStr(new Date());
   const { data: release } = useRelease({ params: { dayOfWeek: todayStr } });
-  const { data: featureList } = useFeatureList({ query: {} });
-  const { data: rankingList } = useRankingList({ query: {} });
+  const { data: featureList } = useFeatureList({ query: { limit: 5 } });
+  const { data: rankingList } = useRankingList({ query: { limit: 10 } });
 
   const pickupA11yId = useId();
   const rankingA11yId = useId();

@@ -52,9 +52,13 @@ const RankingCard: React.FC<Props> = ({ bookId }) => {
       <_Link href={`/books/${book.id}`}>
         <Spacer height={Space * 1.5} />
         <Flex align="flex-start" gap={Space * 2.5} justify="flex-start">
-          {imageUrl != null && (
+          {imageUrl ? (
             <_ImgWrapper>
               <Image alt={book.name} height={96} objectFit="cover" src={imageUrl} width={96} />
+            </_ImgWrapper>
+          ) : (
+            <_ImgWrapper>
+              <Image alt="" height={96} objectFit="cover" width={96} />
             </_ImgWrapper>
           )}
           <Box width="100%">
@@ -70,7 +74,7 @@ const RankingCard: React.FC<Props> = ({ bookId }) => {
             <Spacer height={Space * 1} />
 
             <Flex align="center" gap={Space * 1} justify="flex-end">
-              {authorImageUrl != null && (
+              {authorImageUrl ? (
                 <_AvatarWrapper>
                   <Image
                     alt={`${book.author.name}のアイコン`}
@@ -79,6 +83,10 @@ const RankingCard: React.FC<Props> = ({ bookId }) => {
                     src={authorImageUrl}
                     width={32}
                   />
+                </_AvatarWrapper>
+              ) : (
+                <_AvatarWrapper>
+                  <Image alt="" height={32} objectFit="cover" width={32} />
                 </_AvatarWrapper>
               )}
               <Text color={Color.MONO_80} typography={Typography.NORMAL12}>
