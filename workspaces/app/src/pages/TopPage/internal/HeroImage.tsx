@@ -1,18 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
-import styled from 'styled-components';
 import { Mesh, OrthographicCamera, PlaneGeometry, Scene, ShaderMaterial, TextureLoader, WebGLRenderer } from 'three';
 
 import { IMAGE_SRC } from './ImageSrc';
-
-const _Wrapper = styled.div`
-  aspect-ratio: 16 / 9;
-  width: 100%;
-`;
-
-const _Image = styled.img`
-  display: inline-block;
-  width: 100%;
-`;
 
 export const HeroImage: React.FC = () => {
   const imageRef = useRef<HTMLImageElement | null>(null);
@@ -76,10 +65,13 @@ void main() {
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(width, height);
 
+      let animationFrameId: number;
+
       const animate = () => {
-        requestAnimationFrame(animate);
         renderer.render(scene, camera);
+        animationFrameId = requestAnimationFrame(animate);
       };
+
       animate();
 
       updateImage({
@@ -87,6 +79,10 @@ void main() {
         src: canvasRef.current.toDataURL(),
         width: imageWidth,
       });
+
+      return () => {
+        cancelAnimationFrame(animationFrameId);
+      };
     });
   }, [imageRef, updateImage]);
 
@@ -114,8 +110,8 @@ void main() {
   }, [updateImage]);
 
   return (
-    <_Wrapper>
-      <_Image ref={imageRef} alt="Cyber TOON" />
-    </_Wrapper>
+    <div style={{ aspectRatio: '16 / 9', width: '100%' }}>
+      <img ref={imageRef} alt="Cyber TOON" style={{ display: 'inline-block', width: '100%' }} />
+    </div>
   );
 };
