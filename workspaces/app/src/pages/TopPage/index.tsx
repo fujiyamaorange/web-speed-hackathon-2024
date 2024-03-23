@@ -89,4 +89,4 @@ const TopPageWithSuspense: React.FC = () => {
   );
 };
 
-export { TopPageWithSuspense as TopPage };
+export default TopPageWithSuspense;
