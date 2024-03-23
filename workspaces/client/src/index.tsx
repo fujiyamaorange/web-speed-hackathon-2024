@@ -9,9 +9,10 @@ const ClientApp = React.lazy(() => import('@wsh-2024/app/src/index'));
 import { registerServiceWorker } from './utils/registerServiceWorker';
 
 const main = async () => {
-  window.addEventListener('load', () => {
-    registerServiceWorker();
-  });
+  // window.addEventListener('load', () => {
+  //   registerServiceWorker();
+  // });
+  await registerServiceWorker();
 
   document.addEventListener('DOMContentLoaded', () => {
     const rootElement = document.getElementById('root');
@@ -20,7 +21,7 @@ const main = async () => {
     } else {
       ReactDOM.hydrateRoot(
         rootElement!,
-        <SWRConfig value={{ revalidateIfStale: true, revalidateOnFocus: false, revalidateOnReconnect: false }}>
+        <SWRConfig value={{ revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }}>
           <BrowserRouter>
             <ClientApp />
           </BrowserRouter>
