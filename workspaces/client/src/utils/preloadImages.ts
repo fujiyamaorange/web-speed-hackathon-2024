@@ -22,11 +22,11 @@ export async function preloadImages() {
         Object.assign(link, {
           as: 'image',
           crossOrigin: 'anonymous',
-          // fetchPriority: 'high',
+          fetchPriority: 'high',
           href: imagePath,
           onerror: resolve,
           onload: resolve,
-          // rel: 'preload',
+          rel: 'preload',
         });
         document.head.appendChild(link);
       });
