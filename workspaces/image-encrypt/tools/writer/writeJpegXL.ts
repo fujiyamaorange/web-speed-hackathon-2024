@@ -16,8 +16,8 @@ export const writeJpegXL: WriteImageFunction = async ({ filepath, imageData }) =
 
   const imageBinary = new Uint8Array(
     await encode(imageData, {
-      effort: 0,
-      quality: 100,
+      effort: 4,
+      quality: 10,
     }),
   );
 
