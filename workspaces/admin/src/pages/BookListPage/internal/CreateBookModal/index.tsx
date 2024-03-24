@@ -50,11 +50,12 @@ export const CreateBookModal: React.FC<Props> = ({ isOpen, onClose }) => {
       releaseId: '',
     },
     onSubmit(values) {
+      console.log({ values });
       createBook(
         {
           authorId: values.authorId,
           description: values.description,
-          image: values.image!,
+          image: values.image ?? new File([], 'empty.png'),
           name: values.name,
           nameRuby: values.nameRuby,
           releaseId: values.releaseId,

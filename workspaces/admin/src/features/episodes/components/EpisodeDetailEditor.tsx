@@ -61,12 +61,13 @@ export const EpisodeDetailEditor: React.FC<Props> = ({ book, episode }) => {
     },
     onSubmit(values) {
       if (episode == null) {
-        return createEpisode(
+        console.log({ values });
+        createEpisode(
           {
             bookId: book.id,
             chapter: values.chapter!,
             description: values.description!,
-            image: values.image!,
+            image: values.image ?? new File([], 'empty.png'),
             name: values.name!,
             nameRuby: values.nameRuby!,
           },
@@ -80,7 +81,7 @@ export const EpisodeDetailEditor: React.FC<Props> = ({ book, episode }) => {
           },
         );
       } else {
-        return updateEpisode({
+        updateEpisode({
           bookId: book.id,
           chapter: values.chapter,
           description: values.description,
