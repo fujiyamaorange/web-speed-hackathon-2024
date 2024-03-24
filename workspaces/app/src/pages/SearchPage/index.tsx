@@ -8,6 +8,19 @@ import { Color, Space, Typography } from '../../foundation/styles/variables';
 import { Input } from './internal/Input';
 import { SearchResult } from './internal/SearchResult';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function debounce<F extends (...args: any[]) => any>(func: F, wait: number): (...args: Parameters<F>) => void {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+  return function (...args: Parameters<F>) {
+    if (timeoutId != null) {
+      clearTimeout(timeoutId);
+    }
+
+    timeoutId = setTimeout(() => func(...args), wait);
+  };
+}
+
 const SearchPage: React.FC = () => {
   const { data: books } = useBookList({ query: {} });
 
@@ -17,10 +30,10 @@ const SearchPage: React.FC = () => {
   const [keyword, setKeyword] = useState('');
 
   const onChangedInput = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
+    debounce((event: React.ChangeEvent<HTMLInputElement>) => {
       setKeyword(event.target.value);
-    },
-    [setKeyword],
+    }, 300),
+    [setKeyword], // setKeywordが変わることはないので、実際にはこの依存配列は空でも問題ありませんが、一般的なルールに従っています。
   );
 
   useEffect(() => {
