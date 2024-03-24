@@ -16,7 +16,7 @@ export async function transformJpegXLToBmp(response: Response): Promise<Response
 
   return new Response(bmpBinary, {
     headers: {
-      'Cache-Control': 'no-store',
+      'Cache-Control':'force-cache',
       'Content-Type': 'image/bmp',
     },
   });
