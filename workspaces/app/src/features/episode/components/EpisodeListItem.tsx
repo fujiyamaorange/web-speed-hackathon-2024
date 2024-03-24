@@ -29,10 +29,11 @@ const _ImgWrapper = styled.div`
 
 type Props = {
   bookId: string;
+  eager?: boolean;
   episodeId: string;
 };
 
-export const EpisodeListItem: React.FC<Props> = ({ bookId, episodeId }) => {
+export const EpisodeListItem: React.FC<Props> = ({ bookId, eager, episodeId }) => {
   const { data: episode } = useEpisode({ params: { episodeId } });
 
   const imageUrl = useImage({ height: 96, imageId: episode.image.id, width: 96 });
@@ -44,12 +45,24 @@ export const EpisodeListItem: React.FC<Props> = ({ bookId, episodeId }) => {
         <Flex align="flex-start" gap={Space * 2.5} justify="flex-start">
           {imageUrl ? (
             <_ImgWrapper>
-              <Image alt={episode.name} height={96} loading="lazy" objectFit="cover" src={imageUrl} width={96} />
+              <Image
+                alt={episode.name}
+                height={96}
+                loading={eager ? 'eager' : 'lazy'}
+                objectFit="cover"
+                src={imageUrl}
+                width={96}
+              />
             </_ImgWrapper>
           ) : (
-            <_ImgWrapper>
-              <Image alt="" height={96} objectFit="cover" width={96} />
-            </_ImgWrapper>
+            <div
+              style={{
+                backgroundColor: Color.MONO_10,
+                borderRadius: Radius.SMALL,
+                height: 96,
+                width: 96,
+              }}
+            />
           )}
           <Box width="100%">
             <Flex align="flex-start" direction="column" gap={Space * 1} justify="flex-start">
