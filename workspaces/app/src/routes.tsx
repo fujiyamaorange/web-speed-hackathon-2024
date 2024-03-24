@@ -3,6 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { SvgIcon } from './features/icons/components/SvgIcon';
+import { Box } from './foundation/components/Box';
+import { Flex } from './foundation/components/Flex';
 import { Link } from './foundation/components/Link';
 import { Text } from './foundation/components/Text';
 import { ActionLayout } from './foundation/layouts/ActionLayout';
@@ -13,6 +15,7 @@ import { BookDetailPage } from './pages/BookDetailPage';
 import { EpisodeDetailPage } from './pages/EpisodeDetailPage';
 import { SearchPage } from './pages/SearchPage';
 import { TopPage } from './pages/TopPage';
+import { CoverSection } from './pages/TopPage/internal/CoverSection';
 
 const _BackToTopButton = styled(Link)`
   display: flex;
@@ -27,7 +30,17 @@ export const Router: React.FC = () => {
   return (
     <Routes>
       <Route element={<CommonLayout />} path={'/'}>
-        <Route element={<TopPage />} path={''} />
+        <Route
+          element={
+            <Flex align="flex-start" direction="column" gap={Space * 2} justify="center" pb={Space * 2}>
+              <Box as="header" maxWidth="100%" width="100%">
+                <CoverSection />
+              </Box>
+              <TopPage />
+            </Flex>
+          }
+          path={''}
+        />
       </Route>
       <Route
         element={
