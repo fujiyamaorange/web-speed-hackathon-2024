@@ -5,7 +5,7 @@ export const HeroImage: React.FC = () => {
         alt="Cyber TOON"
         loading="eager"
         src="/assets/image.webp"
-        style={{ display: 'inline-block', width: '100%' }}
+        style={{ display: 'inline-block', height: '680px', width: '1024px' }}
       />
     </div>
   );
