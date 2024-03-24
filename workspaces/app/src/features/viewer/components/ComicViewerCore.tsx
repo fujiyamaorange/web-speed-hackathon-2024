@@ -169,7 +169,7 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId }) => {
 
       // マウスが離されるまではスクロール中とみなす
       if (isPressed) {
-        scrollEndTimer = window.setTimeout(() => handleScrollEnd({ currentTarget: scrollView }), 0);
+        scrollEndTimer = window.setTimeout(() => handleScrollEnd({ currentTarget: scrollView }), 100);
         return;
       } else {
         scrollView.scrollBy({
