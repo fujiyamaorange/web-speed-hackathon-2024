@@ -67,10 +67,6 @@ function getScrollToLeft({
   return scrollToLeft;
 }
 
-const _Container = styled.div`
-  position: relative;
-`;
-
 const _Wrapper = styled.div<{
   $paddingInline: number;
   $pageWidth: number;
@@ -101,7 +97,7 @@ type Props = {
 const ComicViewerCore: React.FC<Props> = ({ episodeId }) => {
   // 画面のリサイズに合わせて再描画する
   const rerender = useUpdate();
-  useInterval(rerender, 0);
+  useInterval(rerender, 100);
 
   const { data: episode } = useEpisode({ params: { episodeId } });
 
@@ -208,13 +204,19 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId }) => {
   }, [pageCountParView, pageWidth, scrollView]);
 
   return (
-    <_Container ref={containerRef}>
+    <div
+      ref={containerRef}
+      style={{
+        height: '650px',
+        position: 'relative',
+      }}
+    >
       <_Wrapper ref={scrollViewRef} $paddingInline={viewerPaddingInline} $pageWidth={pageWidth}>
         {episode.pages.map((page) => {
           return <ComicViewerPage key={page.id} pageImageId={page.image.id} />;
         })}
       </_Wrapper>
-    </_Container>
+    </div>
   );
 };
 
